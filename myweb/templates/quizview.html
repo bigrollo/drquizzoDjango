@@ -1,0 +1,56 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+
+
+
+{% block 'content' %}
+
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<div id="quizText">
+					<div id="quizQuestion">
+					</div>
+
+					<div id="quizAnswers">
+
+					</div>
+
+				</div>
+				<br/>
+
+
+
+				<!--{% if quiz_questions %}
+						{% for Question in quiz_questions %}
+							{{ Question.id }} {{ Question.quizQuestiontext}} <br/>
+						{% endfor %}
+				{% endif %}-->
+			</div>
+		</div>
+	</div>
+
+
+<script type="text/javascript">
+    var marcData = "{{ quiz_questions }}";
+
+    var quizData = [];
+    var answerData = [];
+  
+</script>
+
+<script src="{% static 'scripts/quizView.js'%}"></script>
+
+<script type="text/javascript">
+
+	loadQuestions("{% url 'get_questions' %}","{{csrf_token}}");
+
+	loadQuizAnswers("{% url 'get_answers' %}","{{csrf_token}}");
+</script>
+
+{% endblock %}
+
+
+

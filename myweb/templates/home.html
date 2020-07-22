@@ -1,0 +1,33 @@
+
+{% extends 'base.html' %}
+
+
+{% block 'content' %}
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h1 class="mainText">
+					Welcome to Club {{ sitename }} and Dr. Quizzo
+				</h1>				
+			</div>
+
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<!--<a href="{%url 'quizzes' %}">Quizzes</a>-->
+
+				<br>
+				Available Options: <br/>
+
+				{% for option in user_options %}
+					<a class="h5" href="/{{ option|lower }}">{{ option }}</a><br/>
+				{% endfor %}	
+
+			</div>
+		</div>
+	</div>
+
+
+{% endblock %}
