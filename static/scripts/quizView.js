@@ -26,7 +26,7 @@ function loadQuestions(thePath,csrf){
         	$.each(JSON.parse(data),function(index,object){
         		var theVal = object[index];
         		console.log(object["fields"].quizQuestiontext);
-        		quizData.push({"quizId" : object["fields"].quizId,"question" : object["fields"].quizQuestiontext,"quizAnswer" : object["fields"].quizAnswer,"quizResponses": object["fields"].quizResponses});
+        		quizData.push({"id" : object["pk"],"quizId" : object["fields"].quizId,"question" : object["fields"].quizQuestiontext,"quizAnswer" : object["fields"].quizAnswer,"quizResponses": object["fields"].quizResponses});
         	});
 
         	var response = JSON.parse(data);
@@ -112,6 +112,33 @@ function displayQuestion()
 function displayAnswers()
 {
 	$.each(answerData,function(index,object){
-		$("#quizAnswers").append("<a href=''>" + answerData[index].qAnswer + "</a><br/>");
+		$("#quizAnswers").append("<a class='list-group-item Quizanswer' href='javascript:checkAnswer(\"" + answerData[index].answerId + "\",\"" + answerData[index].questionId + "\")'>" + answerData[index].qAnswer + "</a>");
 	});
+}
+
+
+// Function to check Answer selected..
+function checkAnswer(answer,quizId)
+{
+
+	// Find question from JSON Array a see if it's correct
+	$.each(quizData,function(index,object){
+		if(quizData[index].id = quizId)
+		{
+
+			// check if answer is correct.
+			if(quizData[index].quizAnswer == answer)
+			{
+				alert('You are Correct!');
+			}	
+			else{
+				alert('You are Wrong!');
+			}
+
+			return false;
+		}
+	});
+
+
+	//alert(answer + " : " + quizId);
 }
