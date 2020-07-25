@@ -25,7 +25,7 @@ def quizview(request, Quiz_id):
 	curr_page = "Quiz View Yo!" + " " + Quiz_id
 	quiz_questions = Quizquestion.objects.filter(quizId=Quiz_id)
 
-	return render(request, 'quizview.html', {"quiz_questions" : quiz_questions})
+	return render(request, 'quizview.html', {"quiz_questions" : quiz_questions,"Quiz_id" : Quiz_id})
 
 
 def surveys(request):
@@ -34,13 +34,13 @@ def surveys(request):
 	return render(request, 'surveys.html', {'sitename': 'Marcs Quizzes'})
 
 
-def get_questions(request):
-	my_data = serializers.serialize("json",Quizquestion.objects.filter(quizId=1))
+def get_questions(request, Quiz_id):
+	my_data = serializers.serialize("json",Quizquestion.objects.filter(quizId=Quiz_id))
 	return JsonResponse(my_data, safe=False)
 
 
-def get_answers(request):
-	answer_data = serializers.serialize("json",Quizanswer.objects.filter(questionId=1))
+def get_answers(request, Quiz_id):
+	answer_data = serializers.serialize("json",Quizanswer.objects.filter(quizId=Quiz_id))
 	return JsonResponse(answer_data, safe=False)
 
 

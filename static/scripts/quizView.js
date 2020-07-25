@@ -1,5 +1,6 @@
 
 var quizCounter = 0;
+var currentQuestion = 1;
 
 
 $(document).ready(function(){
@@ -8,12 +9,18 @@ $(document).ready(function(){
 
 	// 
 
+	$("#btnNext").click(function(){
+		alert('Next Button Clicked!');
+	});
 		  
 });
 
 
 function loadQuestions(thePath,csrf){
-	   var quizText = $("#quizText").text();
+	var quizText = $("#quizText").text();
+
+	console.log(thePath);
+
 	$.ajax({ 		  
         url: thePath ,
         type: 'post',
@@ -40,7 +47,7 @@ function loadQuestions(thePath,csrf){
         //	});
 
         	// Start Question load
-        	$("#quz")
+        	//$("#quz")
 
 
         },
@@ -81,7 +88,7 @@ function loadQuizAnswers(thePath,csrf)
 	    	var response = JSON.parse(data);
 
 	    	// Start Question Load
-	    	displayQuestion();
+	    	displayQuestion(currentQuestion);
 	    },
 	    error: function() {
 	        alert('error with finding your address');
@@ -96,7 +103,7 @@ function loadQuizAnswers(thePath,csrf)
 
 
 // Function load question
-function displayQuestion()
+function displayQuestion(currentQuestion)
 {
 
 	var questionIndex = quizCounter + 1;
@@ -104,15 +111,19 @@ function displayQuestion()
 	$("#quizQuestion").append(quizOut);
 
 	// Display Answers
-	displayAnswers();
+	displayAnswers(currentQuestion);
 }
 
 
 // Load Answers to question in index
-function displayAnswers()
+function displayAnswers(currentQuestion)
 {
 	$.each(answerData,function(index,object){
-		$("#quizAnswers").append("<a class='list-group-item Quizanswer' href='javascript:checkAnswer(\"" + answerData[index].answerId + "\",\"" + answerData[index].questionId + "\")'>" + answerData[index].qAnswer + "</a>");
+		if(answerData[index].questionId == currentQuestion)
+		{
+			$("#quizAnswers").append("<a class='list-group-item Quizanswer' id='answer_" + answerData[index].answerId + "' href='javascript:checkAnswer(\"" + answerData[index].answerId + "\",\"" + answerData[index].questionId + "\")'>" + answerData[index].qAnswer + "</a>");		
+		}
+
 	});
 }
 
@@ -129,10 +140,18 @@ function checkAnswer(answer,quizId)
 			// check if answer is correct.
 			if(quizData[index].quizAnswer == answer)
 			{
-				alert('You are Correct!');
+				//alert('You are Correct!');
+				$("#answer_" + answer).css("background-color","lightgreen");
+
 			}	
 			else{
-				alert('You are Wrong!');
+				//alert('You are Wrong!');
+				setTimeout(function(){
+					$("#answer_" + quizData[index].quizAnswer).css("color","white");		
+					$("#answer_" + quizData[index].quizAnswer).css("background-color","crimson");	
+				},1500);
+		
+
 			}
 
 			return false;

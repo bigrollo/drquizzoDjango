@@ -14,9 +14,16 @@
 					<div id="quizQuestion">
 					</div>
 
-					<div id="quizAnswers" class="list-group">
-
+					<div id="quizAnswers" class="list-group Quizcontainer" align="center">
+						<br/>
 					</div>
+
+					<br/>
+					<div align="center">
+						<input type="button" class="btn btn-md btn-info" value="Home">
+						&nbsp;
+						<input type="button" class="btn btn-md btn-success" value="Next" id="btnNext">						
+					</div>	
 
 				</div>
 				<br/>
@@ -45,9 +52,11 @@
 
 <script type="text/javascript">
 
-	loadQuestions("{% url 'get_questions' %}","{{csrf_token}}");
+	var Quiz_id = {{ Quiz_id }}
 
-	loadQuizAnswers("{% url 'get_answers' %}","{{csrf_token}}");
+	loadQuestions("{% url 'get_questions' Quiz_id %}","{{csrf_token}}");
+
+	loadQuizAnswers("{% url 'get_answers' Quiz_id %}","{{csrf_token}}");
 </script>
 
 {% endblock %}

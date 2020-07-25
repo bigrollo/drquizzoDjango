@@ -39,6 +39,12 @@ body{
 .Quizanswer{
 
   text-align:center;
+  width:40%;
 }
+
+.Quizanswer:hover{
+  background-color: lightgreen;
+}
+
 
 
