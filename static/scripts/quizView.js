@@ -10,7 +10,16 @@ $(document).ready(function(){
 	// 
 
 	$("#btnNext").click(function(){
-		alert('Next Button Clicked!');
+		//alert('Next Button Clicked!');
+
+		// Got to next question..
+
+		clearPrevious();
+
+		quizCounter +=1;
+		currentQuestion +=1;
+		displayQuestion(currentQuestion);
+
 	});
 		  
 });
@@ -107,17 +116,21 @@ function displayQuestion(currentQuestion)
 {
 
 	var questionIndex = quizCounter + 1;
+	//alert(questionIndex);
 	var quizOut = "<span class='QuestionText'>" + questionIndex + ". " + quizData[quizCounter].question + "</span>";
 	$("#quizQuestion").append(quizOut);
 
 	// Display Answers
-	displayAnswers(currentQuestion);
+	displayAnswers(currentQuestion,quizData[quizCounter].quizAnswer);
 }
 
 
 // Load Answers to question in index
-function displayAnswers(currentQuestion)
+function displayAnswers(currentQuestion,answer)
 {
+
+	//alert('Answers being displayed!! ' + currentQuestion);
+
 	$.each(answerData,function(index,object){
 		if(answerData[index].questionId == currentQuestion)
 		{
@@ -129,23 +142,27 @@ function displayAnswers(currentQuestion)
 
 
 // Function to check Answer selected..
-function checkAnswer(answer,quizId)
+function checkAnswer(answer,questionId)
 {
+
+	//alert(answer);
 
 	// Find question from JSON Array a see if it's correct
 	$.each(quizData,function(index,object){
-		if(quizData[index].id = quizId)
+		if(quizData[index].id == questionId)
 		{
 
+			//alert('Correct Answer is: ' + quizData[index].quizAnswer);	
 			// check if answer is correct.
+
 			if(quizData[index].quizAnswer == answer)
 			{
-				//alert('You are Correct!');
+				alert('You are Correct!');
 				$("#answer_" + answer).css("background-color","lightgreen");
 
 			}	
 			else{
-				//alert('You are Wrong!');
+				alert('You are Wrong!');
 				setTimeout(function(){
 					$("#answer_" + quizData[index].quizAnswer).css("color","white");		
 					$("#answer_" + quizData[index].quizAnswer).css("background-color","crimson");	
@@ -160,4 +177,12 @@ function checkAnswer(answer,quizId)
 
 
 	//alert(answer + " : " + quizId);
+}
+
+
+// Clear out previous question info
+function clearPrevious()
+{
+	$("#quizQuestion").empty();
+	$("#quizAnswers").empty();
 }
