@@ -19,8 +19,6 @@
 				<!--<a href="{%url 'quizzes' %}">Quizzes</a>-->
 
 				<br>
-				Available Options: <br/>
-
 				{% for option in user_options %}
 					<a class="h5" href="/{{ option|lower }}">{{ option }}</a><br/>
 				{% endfor %}	

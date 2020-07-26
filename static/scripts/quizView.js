@@ -1,6 +1,8 @@
 
 var quizCounter = 0;
 var currentQuestion = 1;
+var currScore = 0;
+var numQuestions = 0;
 
 
 $(document).ready(function(){
@@ -8,6 +10,9 @@ $(document).ready(function(){
 
 
 	// 
+
+	// Set Score to begin: 
+	$("#scoreLbl").text(currScore);
 
 	$("#btnNext").click(function(){
 		//alert('Next Button Clicked!');
@@ -18,7 +23,29 @@ $(document).ready(function(){
 
 		quizCounter +=1;
 		currentQuestion +=1;
-		displayQuestion(currentQuestion);
+
+		if(currentQuestion> numQuestions)
+		{
+			$("#quizText").css("display","none");
+			$("#quizComplete").css("display","block");			
+			
+
+			// Set final score to screen
+			$("#finalScore").text("YOU SCORED " + currScore + " OUT OF " + numQuestions);
+		}
+		else{
+			displayQuestion(currentQuestion);
+
+		// Clear out previous question result.
+		$("#questionResponse").empty();
+
+		// Update Question Index
+		//alert(currentQuestion);
+		$("#currQuestion").text(currentQuestion);
+		
+		}
+
+
 
 	});
 		  
@@ -58,6 +85,10 @@ function loadQuestions(thePath,csrf){
         	// Start Question load
         	//$("#quz")
 
+        	// Set # of questions variable
+        	numQuestions = quizData.length;
+
+        	$("#numQuestions").text(numQuestions);
 
         },
         error: function() {
@@ -157,12 +188,17 @@ function checkAnswer(answer,questionId)
 
 			if(quizData[index].quizAnswer == answer)
 			{
-				alert('You are Correct!');
+				//alert('You are Correct!');
 				$("#answer_" + answer).css("background-color","lightgreen");
+				$("#questionResponse").append("<span style='color:green'>You selected the CORRECT ANSWER</span>")
 
+				// Increment Score Variable
+				currScore+=1;
+				$("#scoreLbl").text(currScore);	
 			}	
 			else{
-				alert('You are Wrong!');
+				//alert('You are Wrong!');
+				$("#questionResponse").append("<span style='color:red'>You selected the WRONG answer!!</span>")
 				setTimeout(function(){
 					$("#answer_" + quizData[index].quizAnswer).css("color","white");		
 					$("#answer_" + quizData[index].quizAnswer).css("background-color","crimson");	
