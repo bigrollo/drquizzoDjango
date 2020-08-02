@@ -35,7 +35,7 @@ def surveys(request):
 
 
 def get_questions(request, Quiz_id):
-	my_data = serializers.serialize("json",Quizquestion.objects.filter(quizId=Quiz_id).order_by('-pk'))
+	my_data = serializers.serialize("json",Quizquestion.objects.filter(quizId=Quiz_id).order_by('-pk').asc())
 	return JsonResponse(my_data, safe=False)
 
 
