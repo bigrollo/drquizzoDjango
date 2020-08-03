@@ -9,4 +9,5 @@ urlpatterns = [
 	path('surveys', views.surveys, name="surveys"),
 	path('getquestions/<Quiz_id>', views.get_questions, name="get_questions"),
 	path('getanswers/<Quiz_id>', views.get_answers, name="get_answers"),
+	path('quizcats', views.quizcats, name="quizcats"),
 ]

@@ -3,6 +3,7 @@ from .models import Quiz
 from .models import Star
 from .models import Quizquestion
 from .models import Quizanswer
+from .models import Quizcat
 from django.http import JsonResponse
 from django.core import serializers
 
@@ -42,6 +43,13 @@ def get_questions(request, Quiz_id):
 def get_answers(request, Quiz_id):
 	answer_data = serializers.serialize("json",Quizanswer.objects.filter(quizId=Quiz_id))
 	return JsonResponse(answer_data, safe=False)
+
+
+def quizcats(request):
+	category_data = Quizcat.objects.all().order_by('category')
+
+	return render(request, 'quizcats.html', {"category_data" : category_data})
+
 
 
 # Marc is Rollin

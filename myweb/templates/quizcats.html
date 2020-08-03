@@ -1,0 +1,31 @@
+
+{% extends 'base.html' %}
+
+
+{% block 'content' %}
+	
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12">
+				<h1 class="mainText">
+					CATEGORIES
+				</h1>				
+			</div>
+
+		</div>
+
+		<div class="row">
+			<div class="col-md-12">
+				<!--<a href="{%url 'quizzes' %}">Quizzes</a>-->
+
+				<br>
+				{% for cats in category_data %}
+					<a class="h5" href="">{{ cats.category }}</a><br/>
+				{% endfor %}	
+
+			</div>
+		</div>
+	</div>
+
+
+{% endblock %}
