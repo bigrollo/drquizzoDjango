@@ -146,24 +146,25 @@ function loadQuizAnswers(thePath,csrf)
 function displayQuestion(currentQuestion)
 {
 
+
 	var questionIndex = quizCounter + 1;
 	//alert(questionIndex);
 	var quizOut = "<span class='QuestionText'>" + questionIndex + ". " + quizData[quizCounter].question + "</span>";
 	$("#quizQuestion").append(quizOut);
 
 	// Display Answers
-	displayAnswers(currentQuestion,quizData[quizCounter].quizAnswer);
+	displayAnswers(currentQuestion,quizData[quizCounter].id);
 }
 
 
 // Load Answers to question in index
-function displayAnswers(currentQuestion,answer)
+function displayAnswers(currentQuestion,questionId)
 {
 
 	//alert('Answers being displayed!! ' + currentQuestion);
 
 	$.each(answerData,function(index,object){
-		if(answerData[index].questionId == currentQuestion)
+		if(answerData[index].questionId == questionId)
 		{
 			$("#quizAnswers").append("<a class='list-group-item Quizanswer' id='answer_" + answerData[index].answerId + "' href='javascript:checkAnswer(\"" + answerData[index].answerId + "\",\"" + answerData[index].questionId + "\")'>" + answerData[index].qAnswer + "</a>");		
 		}
