@@ -6,6 +6,7 @@ class Quiz(models.Model):
 	quizName = models.CharField(max_length=125)
 	quizType = models.CharField(max_length=50)
 	completed = models.BooleanField(default=False)
+	category = models.IntegerField()
 	# models.IntegerField
 
 	def __str__(self):
@@ -30,7 +31,14 @@ class Quizanswer(models.Model):
 
 	def __str__(self):
 		return self.qAnswer + ' Quiz ID: ' + str(self.id)
-		
+
+
+class Quizcat(models.Model):
+	category = models.CharField(max_length=120)
+
+	def __str__(self):
+		return self.category + ' : ' + str(self.id)
+
 
 class Star(models.Model):
 	starName = models.CharField(max_length=75)
