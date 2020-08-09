@@ -1,13 +1,14 @@
 
 
 body{
-	background-color: white !important;
+	background-color: lightgray !important;
 }
 
 
 .mainText{
 	font-size: 20pt !important;
 	font-family: verdana;
+	text-decoration: underline;
 }
 
 .Quizcontainer{
@@ -20,7 +21,7 @@ body{
 .Quizmain{
   height:500px;
   width:85%;
-  background: white;
+  background: #FFFAFA;
   border:2px solid black;
   border-radius:30px;
   align-items:center;
@@ -44,6 +45,10 @@ body{
 
 .Quizanswer:hover{
   background-color: lightgreen;
+}
+
+.Quizlistings{
+	color: black !important;
 }
 
 

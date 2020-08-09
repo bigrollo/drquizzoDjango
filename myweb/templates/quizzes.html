@@ -7,12 +7,19 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<h1>
+				<h1 class="mainText">
 					QUIZZES
 				</h1>
-				<br/>
+				{% if quiz_info.count == 0 %}
+					<h5>No Quizzes for this Category </h5>
+				{% endif %}
+
+
+
 				{% for Quiz in quiz_info %}
-					{{ Quiz.id }}. <a href='{% url 'quizview' Quiz.id %}'>{{ Quiz.quizName }} -- {{ Quiz.quizType }}</a> <br/>
+
+					{{ forloop.counter }}. <a class='Quizlistings' href='{% url 'quizview' Quiz.id %}'>{{ Quiz.quizName }} -- {{ Quiz.quizType }}</a> <br/>
+
 				{% endfor %}
 			</div>
 		</div>
