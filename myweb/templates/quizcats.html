@@ -16,11 +16,12 @@
 
 		<div class="row">
 			<div class="col-md-12">
-				<!--<a href="{%url 'quizzes' %}">Quizzes</a>-->
+
 
 				<br>
 				{% for cats in category_data %}
-					<a class="h5" href="">{{ cats.category }}</a><br/>
+					<a href="{% url 'quizzes' cats.id %}">{{ cats.category }}</a><br/>
+
 				{% endfor %}	
 
 			</div>

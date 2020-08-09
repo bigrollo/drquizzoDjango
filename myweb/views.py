@@ -12,12 +12,13 @@ from django.core import serializers
 
 def home(request):
 	user_options  = ["Quizzes","Surveys","Games"]
-	return render(request, 'home.html', {'user_options' : user_options})
+	user_optionsN = [{ 'label' : 'Quizzes','url' : 'quizcats'},{ 'label' : 'Surveys','url' : 'surveys'}]
+	return render(request, 'home.html', {'user_options' : user_optionsN})
 
 
-def quizzes(request):
+def quizzes(request, id):
 	myname = 'Marcs Quizzes'
-	quiz_info  = Quiz.objects.all()
+	quiz_info  = Quiz.objects.filter(category=id).order_by('quizName')
 
 	return render(request, 'quizzes.html', {'quiz_info' : quiz_info})
 
