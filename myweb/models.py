@@ -10,7 +10,7 @@ class Quiz(models.Model):
 	# models.IntegerField
 
 	def __str__(self):
-		return self.quizName
+		return self.quizName + ' -- ID: ' + str(self.id) 
 
 
 class Quizquestion(models.Model):
