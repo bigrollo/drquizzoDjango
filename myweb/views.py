@@ -42,7 +42,7 @@ def get_questions(request, Quiz_id):
 
 
 def get_answers(request, Quiz_id):
-	answer_data = serializers.serialize("json",Quizanswer.objects.filter(quizId=Quiz_id))
+	answer_data = serializers.serialize("json",Quizanswer.objects.filter(quizId=Quiz_id).order_by('pk'))
 	return JsonResponse(answer_data, safe=False)
 
 
