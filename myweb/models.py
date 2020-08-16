@@ -18,6 +18,7 @@ class Quizquestion(models.Model):
 	quizQuestiontext = models.CharField(max_length=250)
 	quizAnswer = models.CharField(max_length=250)
 	quizResponses = models.CharField(max_length=50,default="None")
+	questionType = models.CharField(max_length=10,default="None")
 
 	def __str__(self):
 		return self.quizQuestiontext + ' -- ID: ' + str(self.id)

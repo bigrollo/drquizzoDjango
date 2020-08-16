@@ -1,5 +1,6 @@
 
 {% extends 'base.html' %}
+{% load static %}
 
 
 {% block 'content' %}
@@ -24,7 +25,21 @@
 
 			</div>
 		</div>
+
+		<br/>
+		<div class="ui-sortable DraggableList" id="sortable1">
+			<li class="ui-state-default ui-sortable-handle" style="background-color: whitesmoke"><span>Willam Howard Taft</span></li>
+			<li class="ui-state-default ui-sortable-handle" style="background-color: whitesmoke"><span>Theodore Roosevelt</span></li>
+			<li class="ui-state-default ui-sortable-handle" style="background-color: whitesmoke"><span>Franklin Delano Roosevelt</span></li>
+			<li class="ui-state-default ui-sortable-handle" style="background-color: whitesmoke"><span>Dwight Eisenhower</span></li>
+		</div>
+
+		<br/>
+		<br/>
+		<input type="text" id="sortableAnswer" size="30">
 	</div>
 
+
+	<script src="{% static 'scripts/quizCats.js'%}"></script>
 
 {% endblock %}

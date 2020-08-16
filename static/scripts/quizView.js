@@ -56,6 +56,7 @@ function loadQuestions(thePath,csrf){
 	var quizText = $("#quizText").text();
 
 	console.log(thePath);
+	//alert('Called');
 
 	$.ajax({ 		  
         url: thePath ,
@@ -69,7 +70,7 @@ function loadQuestions(thePath,csrf){
         	$.each(JSON.parse(data),function(index,object){
         		var theVal = object[index];
         		console.log(object["fields"].quizQuestiontext);
-        		quizData.push({"id" : object["pk"],"quizId" : object["fields"].quizId,"question" : object["fields"].quizQuestiontext,"quizAnswer" : object["fields"].quizAnswer,"quizResponses": object["fields"].quizResponses});
+        		quizData.push({"id" : object["pk"],"quizId" : object["fields"].quizId,"question" : object["fields"].quizQuestiontext,"quizAnswer" : object["fields"].quizAnswer,"quizResponses": object["fields"].quizResponses,"questionType": object["fields"].questionType});
         	});
 
         	var response = JSON.parse(data);
@@ -146,14 +147,32 @@ function loadQuizAnswers(thePath,csrf)
 function displayQuestion(currentQuestion)
 {
 
+	// If question is "H" it's draggable in order
+	if(quizData[quizCounter].questionType == "H")
+	{
+		//alert('Draggable Question!!');
 
-	var questionIndex = quizCounter + 1;
-	//alert(questionIndex);
-	var quizOut = "<span class='QuestionText'>" + questionIndex + ". " + quizData[quizCounter].question + "</span>";
-	$("#quizQuestion").append(quizOut);
+	}
 
-	// Display Answers
-	displayAnswers(currentQuestion,quizData[quizCounter].id);
+	// Question Selected..
+	switch(quizData[quizCounter].questionType){
+		case "H":
+			var questionIndex = quizCounter + 1;
+			//alert(questionIndex);
+			var quizOut = "<span class='QuestionText'>" + questionIndex + ". " + quizData[quizCounter].question + "</span>";
+			$("#quizQuestion").append(quizOut);
+			displayAnswersH(currentQuestion,quizData[quizCounter].id);			
+			break;
+		default:
+			var questionIndex = quizCounter + 1;
+			//alert(questionIndex);
+			var quizOut = "<span class='QuestionText'>" + questionIndex + ". " + quizData[quizCounter].question + "</span>";
+			$("#quizQuestion").append(quizOut);
+
+			// Display Answers
+			displayAnswers(currentQuestion,quizData[quizCounter].id);			
+	}
+
 }
 
 
@@ -169,6 +188,30 @@ function displayAnswers(currentQuestion,questionId)
 			$("#quizAnswers").append("<a class='list-group-item Quizanswer' id='answer_" + answerData[index].answerId + "' href='javascript:checkAnswer(\"" + answerData[index].answerId + "\",\"" + answerData[index].questionId + "\")'>" + answerData[index].qAnswer + "</a>");		
 		}
 
+	});
+}
+
+
+// Display answers for Draggable
+function displayAnswersH(currQuestion,questionId)
+{
+	// 
+	//alert('Displaying Hybrid Questions!!');
+
+	// Add sortable list to div first
+	$("#quizAnswers").append("<div class='ui-sortable DraggableList' id='sortable1'>");
+
+	$.each(answerData,function(index,object){
+		if(answerData[index].questionId == questionId)
+		{
+			// Append to sortable div
+			$("#sortable1").append("<li class='list-group-item ui-state-default ui-sortable-handle'><span>" + answerData[index].qAnswer + "</span></li>");
+			//$("#quizAnswers").append("<a class='list-group-item Quizanswer' id='answer_" + answerData[index].answerId + "' href='javascript:checkAnswer(\"" + answerData[index].answerId + "\",\"" + answerData[index].questionId + "\")'>" + answerData[index].qAnswer + "</a>");		
+		}
+
+
+		// Make div sortable to order questions..
+		$("#sortable1").sortable();
 	});
 }
 
