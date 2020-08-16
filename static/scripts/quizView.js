@@ -212,6 +212,7 @@ function displayAnswersH(currQuestion,questionId)
 
 		// Make div sortable to order questions..
 		$("#sortable1").sortable();
+		$( "#sortable1" ).disableSelection();
 	});
 }
 
