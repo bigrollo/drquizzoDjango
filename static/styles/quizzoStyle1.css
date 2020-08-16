@@ -57,5 +57,15 @@ body{
   margin: 0; /* Remove margins */
 }
 
+.touch({
+    animate: false,
+    sticky: false,
+    dragx: true,
+    dragy: true,
+    rotate: false,
+    resort: true,
+    scale: false
+});
+
 
 
