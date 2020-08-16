@@ -302,7 +302,7 @@ function checkAnswerSort(currQuestion)
 		// Append correct answers...
 		var correctArray = correctAnswer.split("^");
 
-		$("#quizAnswers").append("<div class='ui-sortable DraggableList' id='sortable1'></br>");
+		$("#quizAnswers").append("<div class='ui-sortable DraggableList' id='sortable1'>");
 
 		$.each(correctArray,function(index,object){
 				// Append to sortable div
