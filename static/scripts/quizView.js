@@ -205,17 +205,34 @@ function displayAnswersH(currQuestion,questionId)
 		if(answerData[index].questionId == questionId)
 		{
 			// Append to sortable div
-			$("#sortable1").append("<li class='list-group-item ui-state-default ui-sortable-handle'><span>" + answerData[index].qAnswer + "</span></li>");
+			$("#sortable1").append("<li class='list-group-item ui-state-default ui-sortable-handle sortAnswers'><span>" + answerData[index].qAnswer + "</span></li>");
 			//$("#quizAnswers").append("<a class='list-group-item Quizanswer' id='answer_" + answerData[index].answerId + "' href='javascript:checkAnswer(\"" + answerData[index].answerId + "\",\"" + answerData[index].questionId + "\")'>" + answerData[index].qAnswer + "</a>");		
 		}
 
 
 		// Make div sortable to order questions..
 		$("#sortable1").sortable({
-			containment: "parent"
+			containment: "parent",
+			 update: function (event, ui) {
+                    //alert('Hey Marc U');
+                    var outVal = "";
+                    // Loop through draggable values
+                    $("#sortable1 li>span").each(function (i, el) {
+                        //alert($(el).html())
+                        outVal += $(el).html() + "^";
+                    });
+
+                    // Update sortable answer hidden text field.
+                    $("#sortableAnswer").val(outVal);
+             }
 		});
 		$( "#sortable1" ).disableSelection();
+
 	});
+
+
+		// Append small done button
+		$("#quizAnswers").append("<div id='finishItem' align='center'><a href='javascript:checkAnswerSort(\"" + currQuestion + "\")'>Done</a></div>");	
 }
 
 
@@ -242,6 +259,8 @@ function checkAnswer(answer,questionId)
 				// Increment Score Variable
 				currScore+=1;
 				$("#scoreLbl").text(currScore);	
+
+
 			}	
 			else{
 				//alert('You are Wrong!');
@@ -257,9 +276,50 @@ function checkAnswer(answer,questionId)
 			return false;
 		}
 	});
+}
+
+function checkAnswerSort(currQuestion)
+{
+
+	var correctAnswer = quizData[currentQuestion-1].quizAnswer;
+	var userAnswer=  $("#sortableAnswer").val();
+
+	console.log(correctAnswer + " : " + userAnswer);
+	if(correctAnswer == userAnswer)
+	{
+		$(".sortAnswers").css("background-color","lightgreen");
+
+		$("#finishItem").css("color","lightgreen");
+		$("#finishItem").text("CORRECT!");
+
+		// Increment Score Variable
+		currScore+=1;
+		$("#scoreLbl").text(currScore);	
+	}
+	else{
+		$("#quizAnswers").empty();
+
+		// Append correct answers...
+		var correctArray = correctAnswer.split("^");
+
+		$("#quizAnswers").append("<div class='ui-sortable DraggableList' id='sortable1'></br>");
+
+		$.each(correctArray,function(index,object){
+				// Append to sortable div
+				if(correctArray[index].trim() != "")
+				$("#sortable1").append("<li style='background-color:crimson;color:white' class='list-group-item ui-state-default ui-sortable-handle sortAnswers'><span>" + correctArray[index] + "</span></li>");
+		});
 
 
-	//alert(answer + " : " + quizId);
+		$("#finishItem").css("color","red");
+		$("#finishItem").text("INCORRECT!");
+
+
+		$("#quizAnswers").append("<div id='finishItem' align='center'><br/><span style='color:crimson'>Incorrect</div>");
+
+		$("#quizAnswers").append("</div>");	
+	}
+
 }
 
 
