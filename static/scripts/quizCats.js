@@ -1,7 +1,7 @@
 
 
 $(document).ready(function(){
-	alert('Called YO!!');
+	//alert('Called YO!!');
 	$("#sortable1").sortable({
 		update: function (event, ui) {
 	        //alert('Hey Marc');
