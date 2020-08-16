@@ -199,13 +199,13 @@ function displayAnswersH(currQuestion,questionId)
 	//alert('Displaying Hybrid Questions!!');
 
 	// Add sortable list to div first
-	$("#quizAnswers").append("<div class='ui-sortable DraggableList' id='sortable1'>");
+	$("#quizAnswers").append("<ul style='padding:5px' class='ui-sortable DraggableList' id='sortable1'>");
 
 	$.each(answerData,function(index,object){
 		if(answerData[index].questionId == questionId)
 		{
 			// Append to sortable div
-			$("#sortable1").append("<li class='list-group-item ui-state-default ui-sortable-handle sortAnswers'><span>" + answerData[index].qAnswer + "</span></li>");
+			$("#sortable1").append("<li class='list-group-item ui-state-default ui-sortable-handle sortAnswers' style='padding:5px'><span>" + answerData[index].qAnswer + "</span></li>");
 			//$("#quizAnswers").append("<a class='list-group-item Quizanswer' id='answer_" + answerData[index].answerId + "' href='javascript:checkAnswer(\"" + answerData[index].answerId + "\",\"" + answerData[index].questionId + "\")'>" + answerData[index].qAnswer + "</a>");		
 		}
 
@@ -233,6 +233,7 @@ function displayAnswersH(currQuestion,questionId)
 
 		// Append small done button
 		$("#quizAnswers").append("<div id='finishItem' align='center'><a href='javascript:checkAnswerSort(\"" + currQuestion + "\")'>Done</a></div>");	
+		$("#quizAnswers").append("</ul>");	
 }
 
 
