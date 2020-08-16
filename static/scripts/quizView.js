@@ -214,7 +214,7 @@ function displayAnswersH(currQuestion,questionId)
 		$("#sortable1").sortable({
 			containment: "parent",
 			cursor: 'move',
-    		handle: ".ui-drag-handle",
+    		handle: ".ui-drag-handle"
 		});
 		$( "#sortable1" ).disableSelection();
 	});
