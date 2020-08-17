@@ -205,7 +205,7 @@ function displayAnswersH(currQuestion,questionId)
 		if(answerData[index].questionId == questionId)
 		{
 			// Append to sortable div
-			$("#sortable1").append("<li class='list-group-item ui-state-default ui-sortable-handle sortAnswers QuestionText'><span>" + answerData[index].qAnswer + "</span></li>");
+			$("#sortable1").append("<li class='list-group-item ui-state-default ui-sortable-handle sortAnswers QuestionText' style='background-color:whitesmoke'><span>" + answerData[index].qAnswer + "</span></li>");
 			//$("#quizAnswers").append("<a class='list-group-item Quizanswer' id='answer_" + answerData[index].answerId + "' href='javascript:checkAnswer(\"" + answerData[index].answerId + "\",\"" + answerData[index].questionId + "\")'>" + answerData[index].qAnswer + "</a>");		
 		}
 
